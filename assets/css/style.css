@@ -1,0 +1,18 @@
+body{
+    background: lightgrey;
+    width: 80%;
+    margin: auto;
+}
+
+.card-header{
+    background-color: rgb(7, 94, 128);
+    color: lightgrey;
+}
+
+.jumbotron, .jumbotron-fluid{
+    text-align: center;
+    background-color: rgb(7, 94, 128);
+    color: lightgray;
+    border-style: double;
+    border-width: 7px;
+}

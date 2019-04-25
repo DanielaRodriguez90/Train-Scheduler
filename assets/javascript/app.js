@@ -67,24 +67,29 @@ database.ref().on("child_added", function (childSnapShot) {
     console.log(frequency);
 
     //list of variables to calculate nextArrival and minsAway
+
+    var timeConverted = moment(firstTrain, "hh:mm");
+     //current time variable
     var currentTime = moment();
-    var arrivalMins = currentTime.diff(firstTrain, "minutes");
-    var minuteLast = arrivalMins % frequency;
-    var awayTrain = frequency - minuteLast;
+    console.log(currentTime);
+    var timeDiff = moment().diff(moment(timeConverted), "minutes");
+    var remainder = timeDiff % frequency;
+    var minsAway = frequency - remainder;
 
 
     //console.log everything
-    console.log(currentTime);
-    console.log(arrivalMins);
-    console.log(minuteLast);
-    console.log(awayTrain);
+    console.log(timeConverted);
+    console.log(timeDiff);
+    console.log(remainder);
+    console.log(minsAway);
 
-    //nextArrival
-    var nextArrival = currentTime.add(awayTrain, "minutes");
-    var arrivalTime = nextArrival.format("HH:mm")
+    //nextArrival 
+    var nextTrain = moment().add(minsAway, "minutes").format("mm");
+    var arrivalTime = moment().add(nextTrain, "m").format("hh:mm A");
 
+    
     //console.log 
-    console.log(nextArrival);
+    console.log(nextTrain);
     console.log(arrivalTime);
 
     //create new table row
@@ -93,13 +98,9 @@ database.ref().on("child_added", function (childSnapShot) {
         $("<td>").text(destination),
         $("<td>").text(frequency),
         $("<td>").text(arrivalTime),
-        $("<td>").text(nextArrival),
+        $("<td>").text(nextTrain),
     );
 
     //append the new row
     $("#schedule-table > tbody").append(newRow);
-
-    //handle errors
-    }, function(errorObject) {
-        console.log("Errors handled: " + errorObject.code);
     });
